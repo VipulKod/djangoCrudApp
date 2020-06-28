@@ -1,24 +1,11 @@
-{% load static %}
-<html>
-    <head>
-        <title>Django blog</title>
-        <!-- CSS only -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    </head>
-    <body>
-        <div>
-            <h1 class="text-dark"><a href="/">Django Blog</a></h1>
-        </div>
-
-        
-            {% for post in posts %}
-            <div class="card m-2 p-2">
-                <p class="text-success">published: {{ post.created_date }}</p>
-                <h2><a href="">{{ post.title }}</a></h2>
-                <p class="text-dark">{{ post.text|linebreaksbr }}</p>
-            </div>
-            {% endfor %}
-      
-    </body>
-</html>
+{% extends 'blog/base.html' %} {% block content %}
+<div>
+  <h1 class="text-dark"><a href="/">Django Blog</a></h1>
+</div>
+{% for post in posts %}
+<div class="card m-2 p-2">
+  <p class="text-success">published: {{ post.created_date }}</p>
+  <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+  <p class="text-dark">{{ post.text|linebreaksbr }}</p>
+</div>
+{% endfor %} {% endblock %}
